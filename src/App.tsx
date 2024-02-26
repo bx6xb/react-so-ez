@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import "./App.css"
-import Accordion from "./components/Accordion/Accordion"
-import UncontrolledaAcordion from "./components/UncontrolledaAcordion/UncontrolledaAcordion"
+import { Accordion } from "./components/Accordion/Accordion"
+import { UncontrolledAccordion } from "./components/UncontrolledAccordion/UncontrolledAccordion"
 import Rating, { RatingValueType } from "./components/Rating/Rating"
-import UncontrolledRating from "./components/UncontrolledRating/UncontrolledRating "
+import { UncontrolledRating } from "./components/UncontrolledRating/UncontrolledRating"
 import { OnOff } from "./components/OnOff/OnOff"
 import { UncontrolledOnOff } from "./components/UncontrolledOnOff/UncontrolledOnOff"
 
@@ -28,7 +28,7 @@ function App() {
       <br />
       <br />
       <b>Не контролируемый аккордион</b>
-      <UncontrolledaAcordion titleValue="Menu" />
+      <UncontrolledAccordion titleValue="Menu" />
       <br />
       <br />
       <b>Контролируемый рейтинг</b>

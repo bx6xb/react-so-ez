@@ -1,8 +1,6 @@
-import React, { useState } from "react"
-
 export type OnOff = {
   on: boolean
-  setOn: (value: boolean) => void
+  setOn?: (value: boolean) => void
 }
 
 export function OnOff({ on, setOn }: OnOff) {
@@ -38,7 +36,7 @@ export function OnOff({ on, setOn }: OnOff) {
       <div
         style={onStyle}
         onClick={() => {
-          setOn(true)
+          setOn && setOn(true)
         }}
       >
         On
@@ -46,7 +44,7 @@ export function OnOff({ on, setOn }: OnOff) {
       <div
         style={offStyle}
         onClick={() => {
-          setOn(false)
+          setOn && setOn(false)
         }}
       >
         Off
