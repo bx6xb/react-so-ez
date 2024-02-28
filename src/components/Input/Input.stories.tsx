@@ -34,7 +34,8 @@ export const UncontrolledInputWithTrackingValueByButton = () => {
 
   return (
     <>
-      <input ref={inputRef} /> <button onClick={onClickBtnHandler}>+</button> - {value}
+      <input ref={inputRef} /> <button onClick={onClickBtnHandler}>+</button> -{" "}
+      {value}
     </>
   )
 }
@@ -76,4 +77,6 @@ export const ControlledSelect = () => {
   )
 }
 
-export const ControlledInputWithFixedValue = () => <input value={"some value"} />
+export const ControlledInputWithFixedValue = () => (
+  <input value={"some value"} />
+)
