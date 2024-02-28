@@ -18,13 +18,13 @@ function App() {
     <div className="App">
       <br />
       <b>Контролируемый аккордион</b>
-      <Accordion
+      {/* <Accordion
         titleValue="Menu"
         collapsed={accordionCollapsed}
         onChange={() => {
           setAccordionCollapsed(!accordionCollapsed)
         }}
-      />
+      /> */}
       <br />
       <br />
       <b>Не контролируемый аккордион</b>
