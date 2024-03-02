@@ -1,23 +1,40 @@
-import { useState } from "react"
-import { Select } from "./Select"
+import { useMemo, useState } from "react"
+import { ItemType, Select } from "./Select"
 
 export default {
   title: "Select",
   component: Select,
 }
 
-const users = [
-  { title: "Yan", value: 1 },
-  { title: "Veronika", value: 2 },
-  { title: "Sanya", value: 3 },
+const users: ItemType[] = [
+  { name: "Yan", value: 1, technologies: ["HTML", "CSS", "JS", "React"] },
+  { name: "Veronika", value: 2, technologies: [] },
+  { name: "Sanya", value: 3, technologies: ["HTML"] },
 ]
 
-export const SelectStory = () => {
+const onClick = (value: number, setValue: (value: number) => void) => {
+  setValue(value)
+}
+
+export const MySelect = () => {
   let [value, setValue] = useState(0)
+  let [count, setCount] = useState(0)
 
-  const onClick = (value: number) => {
-    setValue(value)
-  }
+  console.log("SelectStory")
 
-  return <Select items={users} value={value} onClick={onClick} />
+  const filteredUsers = useMemo(() => {
+    return users.filter((u) => u.technologies.length > 0)
+  }, [value])
+
+  return (
+    <>
+      <Select
+        items={filteredUsers}
+        value={value}
+        onClick={onClick}
+        setValue={setValue}
+      />
+      <button onClick={() => setCount(count + 1)}>{count}</button>
+    </>
+  )
 }

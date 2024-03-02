@@ -1,20 +1,24 @@
-import { KeyboardEvent, useEffect, useState } from "react"
+import React, { KeyboardEvent, useEffect, useState } from "react"
 import s from "./Select.module.css"
 
 export type ItemType = {
-  title: string
+  name: string
   value: number
+  technologies: string[]
 }
 
 type SelectPropsType = {
   value: number
   items: ItemType[]
-  onClick: (value: number) => void
+  onClick: (value: number, setValue: (value: number) => void) => void
+  setValue: (value: number) => void
 }
 
-export function Select(props: SelectPropsType) {
+export const Select = React.memo((props: SelectPropsType) => {
   const [isActive, setActive] = useState(false)
   const [hoveredValue, setHoveredValue] = useState(props.value)
+
+  console.log("Select")
 
   const selectedItem = props.items.find((i) => i.value === props.value)!
 
@@ -35,19 +39,19 @@ export function Select(props: SelectPropsType) {
   }
 
   useEffect(() => {
-    props.onClick(hoveredValue)
+    props.onClick(hoveredValue, props.setValue)
   }, [hoveredValue])
 
   return (
     <div onKeyDown={onKeyDown} tabIndex={0} style={{ display: "inline-block" }}>
       <span className={s.select} onClick={toggleItems}>
-        {selectedItem && selectedItem.title}
+        {selectedItem && selectedItem.name}
       </span>
       {isActive && (
         <ul className={s.items}>
           {props.items.map((i) => {
             const onClick = () => {
-              props.onClick(i.value)
+              props.onClick(i.value, props.setValue)
               setActive(false)
             }
 
@@ -60,9 +64,11 @@ export function Select(props: SelectPropsType) {
                 key={i.value}
                 onMouseEnter={onMouseEnter}
                 onClick={onClick}
-                className={s.item + (hoveredValue === i.value ? " " + s.selected : "")}
+                className={
+                  s.item + (hoveredValue === i.value ? " " + s.selected : "")
+                }
               >
-                {i.title}
+                {i.name}
               </li>
             )
           })}
@@ -70,4 +76,4 @@ export function Select(props: SelectPropsType) {
       )}
     </div>
   )
-}
+})
