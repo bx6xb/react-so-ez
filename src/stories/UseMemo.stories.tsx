@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 
 export default {
   title: "useMemo",
@@ -33,16 +33,8 @@ export const DifficultCountingExample = () => {
 
   return (
     <>
-      <input
-        type="number"
-        value={a}
-        onChange={(e) => setA(+e.currentTarget.value)}
-      />
-      <input
-        type="number"
-        value={b}
-        onChange={(e) => setB(+e.currentTarget.value)}
-      />
+      <input type="number" value={a} onChange={(e) => setA(+e.currentTarget.value)} />
+      <input type="number" value={b} onChange={(e) => setB(+e.currentTarget.value)} />
       <hr />
       <h2>result for a: {resultA}</h2>
       <h2>result for b: {resultB}</h2>
@@ -71,10 +63,7 @@ export const ReactMemoAndUseMemo = () => {
   const [count, setCount] = useState(0)
   const [users, setUsers] = useState(["Yan", "Veronika", "Sanya"])
 
-  const filteredUsers = useMemo(
-    () => users.filter((u) => u.toLowerCase().includes("y")),
-    [users]
-  )
+  const filteredUsers = useMemo(() => users.filter((u) => u.toLowerCase().includes("y")), [users])
 
   const addUser = () => setUsers([...users, "zenyow"])
 
@@ -87,3 +76,39 @@ export const ReactMemoAndUseMemo = () => {
     </>
   )
 }
+
+export const likeUseCallback = () => {
+  console.log("likeUseCallback")
+  const [count, setCount] = useState(0)
+  const [books, setBooks] = useState(["HTML", "CSS", "JS"])
+
+  const filteredBooks = useMemo(() => books.filter((u) => u.toLowerCase().includes("s")), [books])
+
+  const addBook = useCallback(() => {
+    setBooks([...books, "Reacts " + new Date().getTime()])
+  }, [books])
+
+  return (
+    <>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      {count}
+      <Books books={filteredBooks} addBook={addBook} />
+    </>
+  )
+}
+
+type BooksPropsType = { books: string[]; addBook: () => void }
+
+export const Books = React.memo((props: BooksPropsType) => {
+  console.log("BooksSecret")
+  return (
+    <>
+      <button onClick={props.addBook}>add book</button>
+      <ul>
+        {props.books.map((b, i) => (
+          <li key={i}>{b}</li>
+        ))}
+      </ul>
+    </>
+  )
+})
