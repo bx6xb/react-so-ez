@@ -15,9 +15,5 @@ export const Example1 = () => {
 
   const [count, setCount] = useState(generateData)
 
-  return (
-    <>
-      <button onClick={() => setCount((prev) => prev + 1)}>{count}</button>
-    </>
-  )
+  return <button onClick={() => setCount((prev) => prev + 1)}>{count}</button>
 }
