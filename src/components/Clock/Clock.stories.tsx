@@ -8,3 +8,7 @@ export default {
 export const ClockExample = () => {
   return <Clock />
 }
+
+export const AnalogClockExample = () => {
+  return <Clock view="analog" />
+}

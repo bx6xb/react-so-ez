@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react"
+import { AnalogClock } from "./AnalogClock/AnalogClock"
+import { DigitalClock } from "./DigitalClock/DigitalClock"
 
-type ClockPropsType = {}
-
-const addZeroToDate = (num: number) => (num < 10 ? "0" : "") + num
+type ClockPropsType = {
+  view?: string
+}
 
 export const Clock = (props: ClockPropsType) => {
   const [date, setDate] = useState(new Date())
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("zenow")
       setDate(new Date())
     }, 1000)
 
     return () => clearInterval(intervalId)
   }, [])
 
-  return (
-    <div>
-      <span>{addZeroToDate(date.getHours())}</span>:<span>{addZeroToDate(date.getMinutes())}</span>:
-      <span>{addZeroToDate(date.getSeconds())}</span>
-    </div>
-  )
+  let view
+  switch (props.view) {
+    case "analog":
+      view = <AnalogClock time={date} />
+      break
+    default:
+      view = <DigitalClock time={date} />
+  }
+
+  return <div>{view}</div>
 }
